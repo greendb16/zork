@@ -9,9 +9,7 @@ public class Zork {
     //Variables
     private static boolean ghost = false;
     private static int userCoins = 0;
-    private static String dir;
-    private static String input;
-    private static int[] coins = {1,2,3,4,5,6,7,8};
+    private static int[] coins = {5,12,3,4,5,6,7,8};
     private static boolean [] item = {false,false,false,false,false,false,false,false};
     private static int direction = 1;
     private static boolean mystery = false;
@@ -170,7 +168,8 @@ public class Zork {
                    coins[2] = 0;
                }
            }
-           //items[2] = "Crawling spiders";
+
+
            while(true){
            System.out.println("Exit 'e'ast to the 'front room'. \nExit 'n'orth to the 'dining room'. \nExit the Game (Q).");
            String input = scan.nextLine().toLowerCase();
@@ -197,8 +196,13 @@ public class Zork {
 
             //Intro
             System.out.println("You enter the Kitchen");
-            System.out.println("There are Bats flying all around!");
+            if(!item[3]){
+            System.out.println("There are Bats flying all around!");}
+            else{
+                System.out.println("There are bat droppings everywhere...");
+            }
             System.out.println("There is a door to the (W)est, and a door to the (N)orth");
+
 
             //Room count
             if (!found4) {
@@ -208,7 +212,7 @@ public class Zork {
 
             //Response
            while(true) {
-               System.out.println("What would you like to do?");
+               System.out.println("\nWhat would you like to do?");
                String input = scan.nextLine();
                if (input.equalsIgnoreCase("w")) {
                    direction = 2;
@@ -219,10 +223,18 @@ public class Zork {
                    break;
                }
                if (input.equalsIgnoreCase("q")) {
+                   System.out.println("You were actually dead the whole time. Game has ended.");
                    direction = 10;
                    break;
 
-               } else {
+               }
+               if(input.equalsIgnoreCase("catch bat") && !item[3]){
+                   item[3] = true;
+                   int bat = rand.nextInt(20);
+                   System.out.println("You grab the bat and it drops "+ bat + " coins!");
+                   System.out.println("All the bats seem to dissapear somewhere...");
+               }
+               else{
                    System.out.println("That is not an option.");
 
                }
@@ -233,7 +245,7 @@ public class Zork {
             //Intro
             System.out.println("You enter the Dining Room");
             System.out.println("The room is very dusty.");
-            if(!item[1]) {
+            if(!item[4]) {
                 System.out.println("There is a large box on the table.");
             }else {
                 System.out.println("There is a large empty box on the table");
@@ -255,16 +267,17 @@ public class Zork {
                 break;
             }
             if (input.equalsIgnoreCase("q")) {
+                System.out.println("You were actually dead the whole time. Game has ended.");
                 quit();
                 break;
 
             }
             if(input. equalsIgnoreCase("open box")) {
-                item[1]= true;
-                int box = rand.nextInt(10);
-                if (box == 0) {
-                    userCoins -= 2;
-                    System.out.println("You accidently drop 3 coins trying to open the empty box");
+                item[4]= true;
+                int box = rand.nextInt(25);
+                if (box <5) {
+                    userCoins -= box;
+                    System.out.println("You accidently drop " + box + " coins trying to open the empty box");
                 } else {
                     userCoins += box;
                     System.out.println("You found " + box + " coins in the box");
@@ -314,6 +327,7 @@ public class Zork {
                     break;
                 }
                 if(input.equalsIgnoreCase("q")){
+                    System.out.println("You were actually dead the whole time. Game has ended.");
                     direction = 10;
                     break;
                 }
@@ -323,15 +337,45 @@ public class Zork {
             }
         }
         private static void room7(){
-            if (!found7) {
-                roomCount++;
+
+            System.out.println("You find yourself entering the old parlor. \nThere is a treasure chest in the middle of the room. \n");
+            if (coins[6] > 0) {
+                System.out.printf("There are %d coins in this room! Would you like to pick them up? (Y/N) ", coins[6]);
+                if (scan.nextLine().charAt(0) == 'y') {
+                    userCoins += coins[6];
+                    coins[6] = 0;
+                }
             }
-            found7 = true;
+            //item[6] = "Treasure chest";
+            while(true) {
+                System.out.println("Exit 'w'est to the 'vault'. \nExit 's'outh to the 'kitchen'. \nExit the Game (Q).");
 
+                String input = scan.nextLine().toLowerCase();
 
-            System.out.println("Where would you like to go?");
-            direction = scan.nextInt();
-            scan.nextLine();
+                if (input.equals("s") || input.equals("kitchen")) {
+                    direction = 4;
+                    break;
+                }if (input.equals("w") || input.equals("vault")) {
+                    direction = 6;
+                    break;
+                }else{
+                    System.out.println("That is not an option");
+                }
+
+            }
+
+//            if (!found7) {
+//                roomCount++;
+//            }
+//            found7 = true;
+//
+//            System.out.println("You have entered the parlor");
+//            if(!item[6]){
+//                System.out.println("There is a large Chest in the center of the room");
+//            }
+//            System.out.println("what would you like to do?");
+//            String input =scan.nextLine();
+
         }
         private static void room8(){
             if (!found8) {
