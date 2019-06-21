@@ -499,7 +499,7 @@ public class Zork {
 //            }
 //        }
         while (true) {
-            System.out.println("You see:\nA door to the (W)est to the Vault. \nAnd a door to the (S)outh back to the Kitchen.");
+            System.out.println("You see:\nA door to the (W)est to the Vault. \nAnd a door to the (S)outh back to the Kitchen.\n\nWhat would you like to do?");
 
             input = scan.nextLine();
 
@@ -516,7 +516,22 @@ public class Zork {
                 break;
             }
             if(input.equalsIgnoreCase("open Chest")){
+                if(!key) {
+                    System.out.println("The chest seems to shock you!\nYou drop 10 coins in alarm.");
+                    userCoins-=10;
+                    System.out.println("You have " + userCoins + " coins.");
+                }
+                if(key){
+                    if (!secrets[6]) {
+                        secrets[6] = true;
+                        totalSecrets++;
+                    }
+                    item[6] = true;
 
+                    System.out.println("You open the chest and find 100 gold!");
+                    userCoins+=100;
+                    System.out.println("You have " + userCoins + " coins.");
+                }
             }
                 else {
                 System.out.println("That is not an option");
@@ -550,7 +565,7 @@ public class Zork {
                 if (input.equalsIgnoreCase("y")) {
                     userCoins += 100;
                     item[7] = true;
-                    System.out.println("You pick up all the treasure and gain 100 gold!!");
+                    System.out.println("You pick up all the treasure and gain 200 gold!!");
                     System.out.println("There is a door to the (W)est.");
                     break;
                 }
@@ -565,6 +580,11 @@ public class Zork {
         } else {
             System.out.println("You enter the treasure room.....  But theres nothing here.\n");
             System.out.println("There is a door to the (W)est.");
+        }
+        if(item[2]){
+            System.out.println("All of sudden Spiders crawl out of everywhere!\n You dont stand a chance.");
+            direction=10;
+            return;
         }
 
 
@@ -588,7 +608,7 @@ public class Zork {
 
 
     private static void quit() {
-        System.out.println("You found " + roomCount + " rooms.");
+        System.out.println("---------Game Over---------\nYou found " + roomCount + " rooms.");
         System.out.println("you found " + userCoins + " coins.");
         System.out.println("You have found " + totalSecrets + "out of 8 secrets.");
 
@@ -603,7 +623,6 @@ public class Zork {
                 userCoins = 0;
                 // coins = {1,2,3,4,5,6,7,8};
                 direction = 1;
-                mystery = false;
                 roomCount = 0;
                 found1 = false;
                 found2 = false;
