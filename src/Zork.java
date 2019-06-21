@@ -16,7 +16,7 @@ public class Zork {
     private static int loot;
     private static boolean ghost = false;
     private static int userCoins = 0;
-    private static int[] coins = {5, 12, 3, 4, 5, 6, 7, 8};
+    //private static int[] coins = {5, 12, 3, 4, 5, 6, 7, 8};
     private static boolean[] item = {false, false, false, false, false, false, false, false};
     private static int direction = 1;
     private static boolean mystery = false;
