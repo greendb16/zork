@@ -9,9 +9,10 @@ public class Zork {
 
     //Variables
     private static String input;
+    private static boolean key =false;
     private static int spooky;
     private static int totalSecrets;
-    private static boolean [] secrets = {false, false, false, false, false, false, false, false};
+    private static boolean[] secrets = {false, false, false, false, false, false, false, false};
     private static int loot;
     private static boolean ghost = false;
     private static int userCoins = 0;
@@ -73,9 +74,9 @@ public class Zork {
 
     }
 
-    private static void intro(){
+    private static void intro() {
         System.out.println("Find as much gold as you can before leaving the mansion.\nThere are plenty of secrets abound...\nAre you ready?(Y/N)");
-        while(true) {
+        while (true) {
             input = scan.nextLine();
             if (input.equalsIgnoreCase("y")) {
                 break;
@@ -83,15 +84,15 @@ public class Zork {
             if (input.equalsIgnoreCase("n")) {
                 System.out.println("Lets try that again.....\nAre you ready? (Y/N)");
             }
-            if (input.equalsIgnoreCase("secrets")){
+            if (input.equalsIgnoreCase("secrets")) {
                 System.out.println("Hint:  All Secrets are 2 word entries.\nAre you ready to start?(Y/N)");
 
-            }
-                else {
+            } else {
                 System.out.println("that is not an option.");
             }
         }
     }
+
     private static void room1() {
         //Room Count
         if (!found1) {
@@ -101,7 +102,9 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
 
         System.out.println("You are standing in the foyer of an old house.\nYou see a dead scorpion.");
@@ -116,7 +119,7 @@ public class Zork {
 //            }
 //        }
         System.out.println("There is a door to the (N)orth, leading to the Front Room.");
-        while(true) {
+        while (true) {
             System.out.println("What would you like to do?");
             input = scan.nextLine();
             if (input.equals("n")) {
@@ -130,22 +133,22 @@ public class Zork {
             //Item 1 - Scorpion
             if (input.equalsIgnoreCase("search scorpion") && !item[0]) {
                 //Secrets
-                if(!secrets[0]){
-                    secrets[0]=true;
+                if (!secrets[0]) {
+                    secrets[0] = true;
                     totalSecrets++;
                 }
 
-                item[0]= true;
+                item[0] = true;
                 int sting = rand.nextInt(5);
                 if (sting == 0) {
                     direction = 10;
                     System.out.println("Somehow the dead Scorpion stings you!!!!  You are dead!");
                     break;
-                }
-                else {loot =(5*sting);
-                userCoins +=loot;
+                } else {
+                    loot = (5 * sting);
+                    userCoins += loot;
                     System.out.println("You find " + loot + " coins on the dead scorpian");
-                    System.out.println("You now have "+ userCoins + " coins.");
+                    System.out.println("You now have " + userCoins + " coins.");
                 }
 
 
@@ -164,7 +167,9 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         System.out.println("You are standing in the front room.\nThere is a large piano against one wall.");
         System.out.println("You see:\n A door to the (W)est to the Library. \nA door to the(E)ast to the Kitchen. \nAnd a door to the (S)outh to the Foyer.");
@@ -192,8 +197,8 @@ public class Zork {
             if (input.equalsIgnoreCase("play piano")) {
 
                 //Secrets
-                if(!secrets[1]){
-                    secrets[1]=true;
+                if (!secrets[1]) {
+                    secrets[1] = true;
                     totalSecrets++;
                 }
                 item[1] = true;
@@ -203,8 +208,7 @@ public class Zork {
                 } else {
                     System.out.println("The music is very creepy.");
                 }
-            }
-            else {
+            } else {
                 System.out.println("That is not an option.");
             }
         }
@@ -220,10 +224,16 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         //Prompt
-        System.out.println("You find yourself in a fancy looking library.\nBut there are spiders crawling on all the bookshelves.");
+        if (!item[2]) {
+            System.out.println("You find yourself in a fancy looking library.\nBut there are spiders crawling on all the bookshelves.");
+        } else {
+            System.out.println("You walk into a strangely empty library");
+        }
         System.out.println("You See:\nA door to the (E)ast to the Front Room. \nAnd a door to the (N)orth to the Dining Room.");
 //        if (coins[2] > 0) {
 //            System.out.printf("There are %d coins in this room! Would you like to pick them up? (Y/N) ", coins[2]);
@@ -241,7 +251,8 @@ public class Zork {
             if (input.equalsIgnoreCase("e")) {
                 direction = 2;
                 break;
-            } if (input.equalsIgnoreCase("n")) {
+            }
+            if (input.equalsIgnoreCase("n")) {
                 direction = 5;
                 break;
             }
@@ -250,19 +261,18 @@ public class Zork {
                 break;
             }
             //item 2 - Spiders
-            if(input.equalsIgnoreCase("Kill spiders") && !item[2]){
+            if (input.equalsIgnoreCase("Kill spiders") && !item[2]) {
 
                 //Secrets
-                if(!secrets[2]){
-                    secrets[2]=true;
+                if (!secrets[2]) {
+                    secrets[2] = true;
                     totalSecrets++;
                 }
-                item[2]=true;
-                loot = (rand.nextInt(20)+1);
-                System.out.println("You kill some of the spiders finding" + loot + "coins!");
+                item[2] = true;
+                loot = (rand.nextInt(20) + 1);
+                System.out.println("You kill some of the spiders finding" + loot + "coins!\nYou now have " + userCoins +" coins.");
                 System.out.println("The rest of the spiders disappear. You wonder where they went.....");
-            }
-            else {
+            } else {
                 System.out.println("That is not an option");
 
             }
@@ -279,7 +289,9 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         //Intro
         System.out.println("You enter the Kitchen");
@@ -310,18 +322,18 @@ public class Zork {
             }
 
             //Item 3 - Bats
-            if (input.equalsIgnoreCase("catch bat") && !item[3]) {
+            if (input.equalsIgnoreCase("catch bats") && !item[3]) {
                 //Secrets
-                if(!secrets[3]){
-                    secrets[3]=true;
+                if (!secrets[3]) {
+                    secrets[3] = true;
                     totalSecrets++;
                 }
                 item[3] = true;
                 loot = rand.nextInt(20);
-                userCoins+=loot;
+                userCoins += loot;
                 System.out.println("You grab a bat and it drops " + loot + " coins!");
+                System.out.println("you now have " + userCoins + " coins.\n");
                 System.out.println("All the bats seem to disappear somewhere...");
-                System.out.println("you now have " + userCoins+ " coins.");
             } else {
                 System.out.println("That is not an option.");
 
@@ -339,7 +351,9 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         //Intro
         System.out.println("You enter the Dining Room\nThe room is very dusty.");
@@ -348,7 +362,7 @@ public class Zork {
         } else {
             System.out.println("There is a large empty box on the table");
         }
-        System.out.println("There is a door to the (S)outh");
+        System.out.println("You see: A door to the (S)outh leading back to the Library");
 
 
         //Response
@@ -360,15 +374,15 @@ public class Zork {
                 break;
             }
             if (input.equalsIgnoreCase("q")) {
-                direction=10;
+                direction = 10;
                 break;
 
             }
             //Item 5 - Box
             if (input.equalsIgnoreCase("open box") && !item[4]) {
                 //Secrets
-                if(!secrets[4]){
-                    secrets[4]=true;
+                if (!secrets[4]) {
+                    secrets[4] = true;
                     totalSecrets++;
                 }
                 item[4] = true;
@@ -392,11 +406,13 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         //Intro
         System.out.println("You enter the Vault");
-        System.out.println("There are 3 Spooky Skeletons walking around");
+        System.out.println("There are 3 Spooky Skeletons walking around!");
 
         //Room Count
         if (!found6) {
@@ -408,11 +424,11 @@ public class Zork {
 
         int secret = rand.nextInt(4);
         if (secret == 0 || mystery) {
-            System.out.println("There is a door to the (E)ast");
+            System.out.println("There is a door to the (E)ast leading back to the Parlour");
             System.out.println("A (S)trange hole appears on the East wall");
             mystery = true;
         } else {
-            System.out.println("There is a door to the (E)ast");
+            System.out.println("There is a door to the (E)ast leading back to the Parlour");
         }
 
         //Response
@@ -431,7 +447,31 @@ public class Zork {
             if (input.equalsIgnoreCase("q")) {
                 direction = 10;
                 break;
-            } else {
+            } if(input.equalsIgnoreCase("attack skeletons") && !item[5]){
+
+                if (!secrets[5]) {
+                    secrets[5] = true;
+                    totalSecrets++;
+                }
+                item[5]=true;
+
+                System.out.println("Which skeleton would you like to attack:\tTom, Big Steve, or Sally?");
+                if(input.equalsIgnoreCase("tom")){
+                    System.out.println("After a tough battle you defeat Tom!  He drops 30 coins\n The other skeletons make a hasty retreat.");
+                    userCoins+=30;
+                    System.out.println("You now have "+ userCoins+ " coins");
+                }
+                if(input.equalsIgnoreCase("sally")){
+                    key = false;
+                    System.out.println("You Easily defeat Sally.\t  She drops a strange giant key!");
+                }
+                if(input.equalsIgnoreCase("big Steve")){
+                    System.out.println("You cant defeat Big Steve!!!!\nHe kills you easily.");
+                    direction=10;
+                    break;
+                }
+            }
+            else {
                 System.out.println("That is not an option.");
             }
         }
@@ -446,19 +486,20 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         System.out.println("You find yourself entering the old parlor. \nThere is a Large Treasure Chest in the middle of the room. \n");
-        if (coins[6] > 0) {
-            System.out.printf("There are %d coins in this room! Would you like to pick them up? (Y/N) ", coins[6]);
-            if (scan.nextLine().charAt(0) == 'y') {
-                userCoins += coins[6];
-                coins[6] = 0;
-            }
-        }
-        //item[6] = "Treasure chest";
+//        if (coins[6] > 0) {
+//            System.out.printf("There are %d coins in this room! Would you like to pick them up? (Y/N) ", coins[6]);
+//            if (scan.nextLine().charAt(0) == 'y') {
+//                userCoins += coins[6];
+//                coins[6] = 0;
+//            }
+//        }
         while (true) {
-            System.out.println("There is a door to the (W)est to the Vault. \nThere is a door to the (S)outh to the Kitchen.");
+            System.out.println("You see:\nA door to the (W)est to the Vault. \nAnd a door to the (S)outh back to the Kitchen.");
 
             input = scan.nextLine();
 
@@ -470,11 +511,14 @@ public class Zork {
                 direction = 6;
                 break;
             }
-            if(input.equalsIgnoreCase("q")){
+            if (input.equalsIgnoreCase("q")) {
                 direction = 10;
                 break;
             }
-            else {
+            if(input.equalsIgnoreCase("open Chest")){
+
+            }
+                else {
                 System.out.println("That is not an option");
             }
 
@@ -491,7 +535,9 @@ public class Zork {
 
         //Ghost
         spooky();
-        if(spooky==5){return;}
+        if (spooky == 5) {
+            return;
+        }
 
         //Prompt
         if (!item[7]) {
@@ -543,8 +589,8 @@ public class Zork {
 
     private static void quit() {
         System.out.println("You found " + roomCount + " rooms.");
-        System.out.println("you found " + userCoins+ " coins.");
-        System.out.println("You have found " + totalSecrets+ "out of 8 secrets.");
+        System.out.println("you found " + userCoins + " coins.");
+        System.out.println("You have found " + totalSecrets + "out of 8 secrets.");
 
 
         //Replay game
@@ -552,7 +598,7 @@ public class Zork {
         System.out.println("Would you like to play again? (Y/N)");
         String reDo = scan.nextLine();
 
-        while(true) {
+        while (true) {
             if (reDo.equalsIgnoreCase("y")) {
                 userCoins = 0;
                 // coins = {1,2,3,4,5,6,7,8};
@@ -569,13 +615,15 @@ public class Zork {
                 found8 = false;
                 for (int i = 0; i < item.length; i++) {
                     item[i] = false;
-                }break;
+                }
+                break;
 
-            } if(reDo.equalsIgnoreCase("n")) {
+            }
+            if (reDo.equalsIgnoreCase("n")) {
                 play = false;
                 System.out.println("Goodbye.  Thank you for playing.");
                 break;
-            }else{
+            } else {
                 System.out.println("Try that again...... \nWould you like to play again? (Y/N)");
             }
         }
@@ -594,35 +642,36 @@ public class Zork {
     }
 
     private static void spooky() {
-        if (ghost){
-        spooky = rand.nextInt(7)+1;
-        switch (spooky) {
-            case 1:
-                System.out.println("BOOOOOOOOO!!!!");
-                break;
-            case 2:
-                System.out.println("GET OUT!!!!!!!");
-                break;
-            case 3:
-                System.out.println("\"Youll never find the Treasure\" - Spooky ghost");
-                break;
-            case 4:
-                System.out.println("MUAHAHAHAHAHAHA");
-                userCoins-=5;
-                System.out.println("5 of your coins mysteriously disappear\nYou now have "+ userCoins + " coins");
-                break;
-            case 5:
-                System.out.println("Oh no you dont!");
-                direction =rand.nextInt(7)+1;
+        if (ghost) {
+            spooky = rand.nextInt(7) + 1;
+            switch (spooky) {
+                case 1:
+                    System.out.println("BOOOOOOOOO!!!!");
+                    break;
+                case 2:
+                    System.out.println("GET OUT!!!!!!!");
+                    break;
+                case 3:
+                    System.out.println("\"Youll never find the Treasure\" - Spooky ghost");
+                    break;
+                case 4:
+                    System.out.println("MUAHAHAHAHAHAHA");
+                    userCoins -= 5;
+                    System.out.println("5 of your coins mysteriously disappear\nYou now have " + userCoins + " coins");
+                    break;
+                case 5:
+                    System.out.println("Oh no you dont!");
+                    direction = rand.nextInt(7) + 1;
 
-                System.out.println("Something weird happens....");
-                break;
-            case 6:
-                System.out.println("Nobody likes you...");
-                break;
-            case 7:
-                System.out.println("You'll be stuck here just like me");
-                break;
+                    System.out.println("Something weird happens....");
+                    break;
+                case 6:
+                    System.out.println("Nobody likes you...");
+                    break;
+                case 7:
+                    System.out.println("You'll be stuck here just like me");
+                    break;
+            }
         }
-    }}
+    }
 }
