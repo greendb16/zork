@@ -1007,7 +1007,7 @@ public class Zork {
 
 
 
-            if (input.equals("s")) {
+            if (input.equalsIgnoreCase("s")) {
 
                 direction = 4;
 
@@ -1015,7 +1015,7 @@ public class Zork {
 
             }
 
-            if (input.equals("w")) {
+            if (input.equalsIgnoreCase("w")) {
 
                 direction = 6;
 
