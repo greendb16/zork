@@ -1377,7 +1377,7 @@ public class Zork {
 
                 case 7:
 
-                    System.out.println("You'll be stuck here just like me");
+                    System.out.println("You'll be stuck here just like me!");
 
                     break;
 
