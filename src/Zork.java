@@ -242,7 +242,7 @@ public class Zork {
 
             input = scan.nextLine();
 
-            if (input.equals("n")) {
+            if (input.equalsIgnoreCase("n")) {
 
                 direction = 2;
 
@@ -250,7 +250,7 @@ public class Zork {
 
             }
 
-            if (input.equals("q")) {
+            if (input.equalsIgnoreCase("q")) {
 
                 direction = 10;
 
@@ -374,7 +374,7 @@ public class Zork {
 
             }
 
-            if (input.equals("q")) {
+            if (input.equalsIgnoreCase("q")) {
 
                 direction = 10;
 
